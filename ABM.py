@@ -135,27 +135,34 @@ def crear_categoria(cat):
 			return
 
 
+def menu_categoria():
+	
+
+
 def menu_principal():
-	print('--------------------- MENÚ PRINCIPAL ---------------------')
-	print('\t 1. Crear categoría.')
-	print('\t 2. Eliminar categoría.')
-	print('\t 3. Modificar categoría.')
-	print('\t 4. Categorias disponibles.')
-	print('\t 5. Salir.')
-	opc = int(input('\n>> Opción deseada: '))
-	while (opc < 1) or (opc > 6):
-		print('>> ERROR. Valor fuera de rango.')
-		opc = int(input('\n>> Opción deseada:'))
-	if (opc in range(1,6)):
-		if (opc == 1):
-			crear_categoria(leer_categoria())
-		elif (opc == 2):
-			eliminar_categoria(leer_categoria())
-		elif (opc == 3):
-			menu_categoria()
-		elif (opc == 4):
-			ver_categorias()
-		else:
-			return
+	try:
+		print('--------------------- MENÚ PRINCIPAL ---------------------')
+		print('\t 1. Crear categoría.')
+		print('\t 2. Eliminar categoría.')
+		print('\t 3. Modificar categoría.')
+		print('\t 4. Categorias disponibles.')
+		print('\t 5. Salir.')
+		opc = int(input('\n>> Opción deseada: '))
+		while (opc < 1) or (opc > 6):
+			print('>> ERROR. Valor fuera de rango.')
+			opc = int(input('\n>> Opción deseada:'))
+		if (opc in range(1,6)):
+			if (opc == 1):
+				crear_categoria(leer_categoria())
+			elif (opc == 2):
+				eliminar_categoria(leer_categoria())
+			elif (opc == 3):
+				menu_categoria()
+			elif (opc == 4):
+				ver_categorias()
+			else:
+				return
+	except(KeyboardInterrupt):
+		print('\n>> Fin de programa, vuelva pronto.')
 
 menu_principal()
