@@ -64,10 +64,31 @@ def eliminar_categoria(cat):
 	if (os.path.exists('categorias.bin')):
 		try:
 			f = open('categorias.bin','rb')
-			f = pickle.load(f)
+			dic = pickle.load(f)
+			if (cat in dic):
+				resp = input('>> ¿Está seguro que desea eliminar la categoría {0}? [s/n]: '.format(cat))
+				if (evaluar_resp(resp) == 's'):
+					del dic[cat]
+					try:
+						f = open('categorias.bin','wb')
+						pickle.dump(dic,f)
+					except:
+						print('>> ERROR. No se puede escribir en el archivo.')
+					print('>> La categoría {0} se eliminó correctamente.'.format(cat))
+				elif (evaluar_resp(resp) == 'n'):
+					print('>> Buena elección.')
+				else:
+					pass
+			else:
+				print('>> La categoría {0} no se encuentra en el archivo. No se puede eliminar.')
 		except:
 			print('>> ERROR al abrir el archivo "categorias.bin".')
 			return
+		f.close()
+	else:
+		print('>> ERROR. No existe el archivo "categorias.bin". No se puede continuar.')
+	input('\n-- Presione <ENTER> para continuar --\n')
+	menu_principal()
 
 
 def crear_categoria(cat):
@@ -78,7 +99,7 @@ def crear_categoria(cat):
 			if (cat in dic):
 				print('>> La categoría ya existe en el archivo!')
 			else:
-				resp = input('>> La categoría {0} no existe en el archivo. ¿Desea crearla? [s/n]'.format(cat))
+				resp = input('>> La categoría {0} no existe en el archivo. ¿Desea crearla? [s/n]: '.format(cat))
 				if (evaluar_resp(resp) == 's'):
 					alta_categoría(cat)
 				elif (evaluar_resp(resp) == 'n'):
