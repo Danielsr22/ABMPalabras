@@ -33,7 +33,7 @@ def crear_archivo():
 	try:
 		f = open('categorias.bin','wb')
 		dic = {}
-		picle.dump(dic,f)
+		pickle.dump(dic,f)
 		f.close()
 		print('>> El archivo "categorias.bin" se creó correctamente.')
 		input('\n-- Presione <ENTER> para continuar --')
@@ -101,6 +101,7 @@ def crear_categoria(cat):
 				try:
 					f = open('categorias.bin','wb')		## CAMBIO EL MODO DE APERTURA DEL ARCHIVO
 					pickle.dump(dic,f)		## ESCRIBO EL DICCIONARIO EN EL ARCHIVO
+					print('>> La categoría {0} fue agregada correctamente.'.format(cat))
 				except:
 					print('\n>> ERROR. No se puede escribir en el archivo.')
 					return
