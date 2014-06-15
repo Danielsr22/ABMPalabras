@@ -135,8 +135,31 @@ def crear_categoria(cat):
 			return
 
 
-def menu_categoria():
-	
+def menu_categoria(cat):
+	print('\n--------------------- CATEGORÍA {0}---------------------'.format(cat))
+	print('\t 1. Agregar palabra a categoría.')
+	print('\t 2. Eliminar palabra de categoría.')
+	print('\t 3. Modificar palabra en categoría.')
+	print('\t 4. Ver palabras en categoría.')
+	print('\t 5. Ver palabra aleatoria.')
+	print('\t 6. Menú anterior.')
+	opc = int(input('\n>> Opción deseada: '))
+	while(opc < 1) or (opc > 6):
+		print('>> ERROR. Valor fuera de rango.')
+		opc = int(input('\n>> Opción deseada: '))
+	if (opc in range(1,7)):
+		if (opc == 1):
+			agregar_palabra(cat)	## IMPLEMENTAR
+		elif (opc == 2):	
+			eliminar_palabra(cat)	## IMPLEMENTAR
+		elif (opc == 3):
+			mod_palabra(cat)		## IMPLEMENTAR
+		elif (opc == 4):
+			listar_palabras(cat)	## IMPLEMENTAR
+		elif (opc == 5):
+			palabra_random(cat)		## IMPLEMENTAR
+		elif (opc == 6):
+			menu_principal()
 
 
 def menu_principal():
@@ -148,7 +171,7 @@ def menu_principal():
 		print('\t 4. Categorias disponibles.')
 		print('\t 5. Salir.')
 		opc = int(input('\n>> Opción deseada: '))
-		while (opc < 1) or (opc > 6):
+		while (opc < 1) or (opc > 5):
 			print('>> ERROR. Valor fuera de rango.')
 			opc = int(input('\n>> Opción deseada:'))
 		if (opc in range(1,6)):
@@ -157,10 +180,11 @@ def menu_principal():
 			elif (opc == 2):
 				eliminar_categoria(leer_categoria())
 			elif (opc == 3):
-				menu_categoria()
+				menu_categoria(leer_categoria())
 			elif (opc == 4):
 				ver_categorias()
 			else:
+				print('\n>> Fin de programa, vuelva pronto.')		
 				return
 	except(KeyboardInterrupt):
 		print('\n>> Fin de programa, vuelva pronto.')
