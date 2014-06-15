@@ -32,6 +32,8 @@ def alta_categoria(cat):
 def crear_archivo():
 	try:
 		f = open('categorias.bin','wb')
+		dic = {}
+		picle.dump(dic,f)
 		f.close()
 		print('>> El archivo "categorias.bin" se creó correctamente.')
 		input('\n-- Presione <ENTER> para continuar --')
@@ -41,21 +43,37 @@ def crear_archivo():
 
 def evaluar_resp(resp):
 	resp = resp.lower()
-	while (resp != 's') and (resp != 'n'):
-		resp = input('>> ERROR. Sólo se admite como respuesta "s" ó "n". Ingrese nuevamente su respuesta: ')
+	if (resp == 's'):
+		return (resp)
+	elif (resp == 'n'):
+		return(resp)
+	else:
+		resp = input('>> ERROR. Sólo se admiten los caracteres indicados. Ingrese nuevamente su respuesta: ')
 		resp = resp.lower()
 		if (resp == 's'):
-			return(resp)
+			return (resp)
 		elif (resp == 'n'):
 			return(resp)
 		else:
-			pass
-	
+			print('\n>> ERROR. Usted necesita anteojos o es bobo. Intente nuevamente desde el comienzo...')
+			input('\n-- Presione <ENTER> para continuar --\n')
+			menu_principal()
+
+
+def eliminar_categoria(cat):
+	if (os.path.exists('categorias.bin')):
+		try:
+			f = open('categorias.bin','rb')
+			f = pickle.load(f)
+		except:
+			print('>> ERROR al abrir el archivo "categorias.bin".')
+			return
+
 
 def crear_categoria(cat):
 	if (os.path.exists('categorias.bin')):
 		try:
-			f = open('categorias.bin','rb')			# <<< ACAAAA
+			f = open('categorias.bin','rb')	
 			dic = pickle.load(f)
 			if (cat in dic):
 				print('>> La categoría ya existe en el archivo!')
@@ -75,7 +93,20 @@ def crear_categoria(cat):
 	else:
 		resp = input('>> El archivo "categorias.bin" no existe. ¿Desea crearlo? [s/n]: ')
 		if (evaluar_resp(resp) == 's'):
-			crear_archivo()	
+			crear_archivo()
+			try:
+				f = open('categorias.bin','rb')	
+				dic = pickle.load(f)
+				dic[cat] = []		## CREO LA NUEVA CATEGORIA SIN NINGUNA PALABRA EN LA LISTA
+				try:
+					f = open('categorias.bin','wb')		## CAMBIO EL MODO DE APERTURA DEL ARCHIVO
+					pickle.dump(dic,f)		## ESCRIBO EL DICCIONARIO EN EL ARCHIVO
+				except:
+					print('\n>> ERROR. No se puede escribir en el archivo.')
+					return
+			except:
+				print('\n>> ERROR. No se puede leer el archivo.')
+			f.close()
 			menu_principal()
 		if (evaluar_resp(resp) == 'n'):
 			print('\n>> No se puede continuar sin el archivo. Abortando programa...')
