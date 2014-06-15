@@ -80,7 +80,7 @@ def eliminar_categoria(cat):
 				else:
 					pass
 			else:
-				print('>> La categoría {0} no se encuentra en el archivo. No se puede eliminar.')
+				print('>> La categoría {0} no se encuentra en el archivo. No se puede eliminar.'.format(cat))
 		except:
 			print('>> ERROR al abrir el archivo "categorias.bin".')
 			return
