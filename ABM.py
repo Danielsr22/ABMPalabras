@@ -184,7 +184,7 @@ def mod_palabra(cat):
 		if (pal in lista):
 			palNueva = input('>> Ingrese la palabra modificada: ')
 			palNueva = palNueva.lower()
-			resp = input('\n>> ¿Está seguro que desea cambiar la palabra "{0}" por {1}? [s/n]: '.format(pal,palNueva))
+			resp = input('\n>> ¿Está seguro que desea cambiar la palabra "{0}" por "{1}"? [s/n]: '.format(pal,palNueva))
 			if (evaluar_resp(resp) == 's'):
 				lista.remove(pal)
 				lista.append(palNueva)
@@ -197,7 +197,7 @@ def mod_palabra(cat):
 				except:
 					print('>> ERROR. No se puede escribir en el archivo.')
 			elif (evaluar_resp(resp) == 'n'):
-				print('\n>> No se realizaron modificaciones. La palabra "{0}" no se encuentra en la categoría "{1}".'.format(pal,cat))
+				print('\n>> No se realizaron modificaciones.')
 			else:
 				pass
 			f.close()
