@@ -1,3 +1,6 @@
+#!/bin/python
+# -*- encoding: utf-8 -*-
+
 import pickle
 import os
 from random import randrange
