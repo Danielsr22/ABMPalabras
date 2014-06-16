@@ -236,7 +236,25 @@ def ver_palabras(cat):
 	except:
 		print('>> ERROR. No se puede leer el archivo "categorias.bin".')
 	input('\n-- Presione <ENTER> para continuar --\n')
-	menu_categoria(cat)		
+	menu_categoria(cat)	
+
+def ver_categorias():
+	if (os.path.exists('categorias.bin')):
+		try:
+			f = open('categorias.bin','rb')
+			dic = pickle.load(f)
+			if (len(dic) > 0):
+				print('>> Categorías disponibles actualmente: ')
+				for i in dic:
+					print('\t- {0}'.format(i))
+			else:
+				print('\n>> El archivo "categorias.bin" aún no contiene categorías. Para crear una utilice la opción 1.')
+		except:
+			print('>> ERROR. No se puede leer el archivo "categorias.bin.')
+	else:
+		print('>> ERROR. El archivo "categorias.bin" no existe. Para crearlo primero cree una categoría con la opción 1.')
+	input('\n-- Presione <ENTER> para continuar --\n')
+	menu_principal()	
 
 
 def palabra_random(cat):
