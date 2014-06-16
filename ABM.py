@@ -8,27 +8,6 @@ def leer_categoria():
 	return cat
 
 
-
-#def alta_categoria(cat):
-#	try:
-#		f = open('categorias.bin','rb')
-#		dic = pickle.load(f)
-#		dic[cat] = []
-#		if not(os.path.exists('categorias.bin')):
-#			try:
-#				f = open('categorias.bin','wb')
-#				pickle.dump(dic,f)
-#				print('>> La categoría {0} se creó correctamente!'.format(cat))
-#			except:
-#				print('>> ERROR al escribir en el archivo.')
-#		else:
-#			print('>> El archivo "categorias.bin" ya existe en el directorio.')
-#	except:
-#		print('>> ERROR al intentar abrir el archivo como lectura.')
-#	input('\n-- Presione <ENTER> para continuar --')
-#	menu_principal()
-
-
 def crear_archivo():
 	try:
 		f = open('categorias.bin','wb')
