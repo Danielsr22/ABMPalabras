@@ -1,6 +1,6 @@
 import pickle
 import os
-
+from random import randrange
 
 def leer_categoria():
 	cat = input('>> Nombre de la categoría con la que desea trabajar: ')
@@ -229,6 +229,20 @@ def ver_palabras(cat):
 	input('\n-- Presione <ENTER> para continuar --\n')
 	menu_categoria(cat)		
 
+
+def palabra_random(cat):
+	try:
+		f = open('categorias.bin','rb')
+		dic = pickle.load(f)
+		lista = dic[cat]
+		f.close()
+		posRandom = randrange(0,len(lista)+1)
+		print('\n>> Palabra seleccionada al azar: {0}'.format(lista[posRandom]))
+	except:
+		print('>> ERROR. No se puede leer el archivo "categorias.bin".')
+	input('\n-- Presione <ENTER> para continuar --\n')
+	menu_categoria(cat)		
+
 		
 def verificar_cat(cat):
 	if (os.path.exists('categorias.bin')):
@@ -270,9 +284,9 @@ def menu_categoria(cat):
 		elif (opc == 3):
 			mod_palabra(cat)
 		elif (opc == 4):
-			ver_palabras(cat)	## IMPLEMENTAR
+			ver_palabras(cat)
 		elif (opc == 5):
-			palabra_random(cat)		## IMPLEMENTAR
+			palabra_random(cat)	
 		elif (opc == 6):
 			menu_principal()
 
@@ -282,8 +296,8 @@ def menu_principal():
 		print('--------------------- MENÚ PRINCIPAL ---------------------')
 		print('\t 1. Crear categoría.')
 		print('\t 2. Eliminar categoría.')
-		print('\t 3. Modificar categoría.')
-		print('\t 4. Categorias disponibles.')
+		print('\t 3. Opciones de categoría.')
+		print('\t 4. Ver categorias disponibles.')
 		print('\t 5. Salir.')
 		opc = int(input('\n>> Opción deseada: '))
 		while (opc < 1) or (opc > 5):
