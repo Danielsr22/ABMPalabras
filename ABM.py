@@ -175,11 +175,42 @@ def eliminar_palabra(cat):
 				return
 		else:
 			print('>> ERROR. La palabra "{0}" no se encuentra en la categoría {1}.'.format(pal,cat))
+		f.close()
 	except:
 		print('>> ERROR. No se puede leer el archivo "categorias.bin".')
 	input('\n-- Presione <ENTER> para continuar --\n')
 	menu_categoria(cat)
-		
+
+
+def mod_palabra(cat):
+	try:
+		f = open('categorias.bin','rb')
+		dic = pickle.load(f)
+		lista = dic[cat]
+		pal = input('>> Por favor, ingrese la palabra a modificar: ')
+		pal = pal.lower()
+		if (pal in lista):
+			palNueva = input('>> Ingrese la palabra modificada: ')
+			palNueva = palNueva.lower()
+			resp = input('\n>> ¿Está seguro que desea cambiar la palabra "{0}" por {1}? [s/n]: '.format(pal,palNueva))
+			if (evaluar_resp(resp) == 's'):
+				lista.remove(pal)
+				lista.append(palNueva)
+				lista.sort()
+				dic[cat] = lista
+				try:
+					f = open('categorias.bin','wb')
+					pickle.dump(dic,f)
+					print('>> La modificación se realizó correctamente.')
+				except:
+					print('>> ERROR. No se puede escribir en el archivo.')
+			else:
+				print('>> No se realizaron modificaciones. La palabra "{0}" no se encuentra en la categoría "{1}".'.format(pal,cat))
+			f.close()
+	except:
+		print('>> ERROR. No se puede leer el archivo "categorias.bin".')
+	input('\n-- Presione <ENTER> para continuar --\n')
+	menu_categoria(cat)		
 
 		
 def verificar_cat(cat):
