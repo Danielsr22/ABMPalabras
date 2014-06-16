@@ -330,7 +330,7 @@ def menu_principal():
 				ver_categorias()	
 			else:
 				print('\n>> Fin de programa, vuelva pronto.')		
-				return
+				raise KeyboardInterrupt
 	except(KeyboardInterrupt):
 		print('\n\n>> Fin de programa, vuelva pronto.')
 
