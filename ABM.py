@@ -204,9 +204,26 @@ def mod_palabra(cat):
 					print('>> La modificación se realizó correctamente.')
 				except:
 					print('>> ERROR. No se puede escribir en el archivo.')
+			elif (evaluar_resp(resp) == 'n'):
+				print('\n>> No se realizaron modificaciones. La palabra "{0}" no se encuentra en la categoría "{1}".'.format(pal,cat))
 			else:
-				print('>> No se realizaron modificaciones. La palabra "{0}" no se encuentra en la categoría "{1}".'.format(pal,cat))
+				pass
 			f.close()
+	except:
+		print('>> ERROR. No se puede leer el archivo "categorias.bin".')
+	input('\n-- Presione <ENTER> para continuar --\n')
+	menu_categoria(cat)
+
+
+def ver_palabras(cat):
+	try:
+		f = open('categorias.bin','rb')
+		dic = pickle.load(f)
+		lista = dic[cat]
+		f.close()
+		print('\n>> Palabras en la categoría "{0}":'.format(cat))
+		for i in lista:
+			print('\t- {0}'.format(i))
 	except:
 		print('>> ERROR. No se puede leer el archivo "categorias.bin".')
 	input('\n-- Presione <ENTER> para continuar --\n')
@@ -251,9 +268,9 @@ def menu_categoria(cat):
 		elif (opc == 2):	
 			eliminar_palabra(cat)
 		elif (opc == 3):
-			mod_palabra(cat)		## IMPLEMENTAR
+			mod_palabra(cat)
 		elif (opc == 4):
-			listar_palabras(cat)	## IMPLEMENTAR
+			ver_palabras(cat)	## IMPLEMENTAR
 		elif (opc == 5):
 			palabra_random(cat)		## IMPLEMENTAR
 		elif (opc == 6):
