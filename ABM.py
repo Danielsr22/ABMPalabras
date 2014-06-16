@@ -98,6 +98,8 @@ def crear_categoria(cat):
 			dic = pickle.load(f)
 			if (cat in dic):
 				print('>> La categoría ya existe en el archivo!')
+				input('\n-- Presione <ENTER> para continuar --\n')
+				menu_principal()
 			else:
 				resp = input('>> La categoría {0} no existe en el archivo. ¿Desea crearla? [s/n]: '.format(cat))
 				if (evaluar_resp(resp) == 's'):
@@ -151,13 +153,35 @@ def agregar_palabra(cat):
 		f.close()
 	except:
 		print('>> ERROR. No se puede leer el archivo "categorias.bin".')
-		return
 	input('\n-- Presione <ENTER> para continuar --\n')
 	menu_categoria(cat)
 
+def eliminar_palabra(cat):
+	try:
+		f = open('categorias.bin','rb')
+		dic = pickle.load(f)
+		lista = dic[cat]
+		pal = input('>> Por favor, ingrese la palabra que desea eliminar: ')
+		pal = pal.lower()
+		if (pal in lista):
+			lista.remove(pal)
+			dic[cat] = lista
+			try:
+				f = open('categorias.bin','wb')
+				pickle.dump(dic,f)
+				print('>> La palabra "{0}"" se ha eliminado correctamente.'.format(pal))
+			except:
+				print('>> ERROR. No se puede escribir en el archivo.')
+				return
+		else:
+			print('>> ERROR. La palabra "{0}" no se encuentra en la categoría {1}.'.format(pal,cat))
+	except:
+		print('>> ERROR. No se puede leer el archivo "categorias.bin".')
+	input('\n-- Presione <ENTER> para continuar --\n')
+	menu_categoria(cat)
+		
 
-
-
+		
 def verificar_cat(cat):
 	if (os.path.exists('categorias.bin')):
 		try:
@@ -194,7 +218,7 @@ def menu_categoria(cat):
 		if (opc == 1):
 			agregar_palabra(cat)	
 		elif (opc == 2):	
-			eliminar_palabra(cat)	## IMPLEMENTAR
+			eliminar_palabra(cat)
 		elif (opc == 3):
 			mod_palabra(cat)		## IMPLEMENTAR
 		elif (opc == 4):
