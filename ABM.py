@@ -135,10 +135,27 @@ def crear_categoria(cat):
 			return
 
 def agregar_palabra(cat):
-	if (os.path.exists('categorias.bin')):
+	try:
+		f = open ('categorias.bin','rb')
+		dic = pickle.load(f)
+		pal = input('>> Por favor, ingrese la nueva palabra: ')
+		pal = pal.lower()
+		dic[cat].append(pal)
+		dic[cat].sort()
 		try:
-			f = open ('categorias.bin','rb')
-			dic = pickle.load(f)
+			f = open ('categorias.bin','wb')
+			pickle.dump(dic,f)
+			print ('>> La palabra "{0}" se agregó correctamente a la categoría {1}.'.format(pal,cat))
+		except:
+			print('>> ERROR. No se puede abrir el archivo para escritura.')
+		f.close()
+	except:
+		print('>> ERROR. No se puede leer el archivo "categorias.bin".')
+		return
+	input('\n-- Presione <ENTER> para continuar --\n')
+	menu_categoria(cat)
+
+
 
 
 def verificar_cat(cat):
@@ -175,7 +192,7 @@ def menu_categoria(cat):
 		opc = int(input('\n>> Opción deseada: '))
 	if (opc in range(1,7)):
 		if (opc == 1):
-			agregar_palabra(cat)	## IMPLEMENTANDO
+			agregar_palabra(cat)	
 		elif (opc == 2):	
 			eliminar_palabra(cat)	## IMPLEMENTAR
 		elif (opc == 3):
