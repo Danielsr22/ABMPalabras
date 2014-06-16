@@ -134,9 +134,8 @@ def crear_categoria(cat):
 			print('\n>> No se puede continuar sin el archivo. Abortando programa...')
 			return
 
-
 def menu_categoria(cat):
-	print('\n--------------------- CATEGORÍA {0}---------------------'.format(cat))
+	print('\n--------------------- CATEGORÍA {0} ---------------------'.format(cat))
 	print('\t 1. Agregar palabra a categoría.')
 	print('\t 2. Eliminar palabra de categoría.')
 	print('\t 3. Modificar palabra en categoría.')
@@ -187,6 +186,6 @@ def menu_principal():
 				print('\n>> Fin de programa, vuelva pronto.')		
 				return
 	except(KeyboardInterrupt):
-		print('\n>> Fin de programa, vuelva pronto.')
+		print('\n\n>> Fin de programa, vuelva pronto.')
 
 menu_principal()
