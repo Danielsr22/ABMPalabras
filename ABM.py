@@ -9,24 +9,24 @@ def leer_categoria():
 
 
 
-def alta_categoria(cat):
-	try:
-		f = open('categorias.bin','rb')
-		dic = pickle.load(f)
-		dic[cat] = []
-		if not(os.path.exists('categorias.bin')):
-			try:
-				f = open('categorias.bin','wb')
-				pickle.dump(dic,f)
-				print('>> La categoría {0} se creó correctamente!'.format(cat))
-			except:
-				print('>> ERROR al escribir en el archivo.')
-		else:
-			print('>> El archivo "categorias.bin" ya existe en el directorio.')
-	except:
-		print('>> ERROR al intentar abrir el archivo como lectura.')
-	input('\n-- Presione <ENTER> para continuar --')
-	menu_principal()
+#def alta_categoria(cat):
+#	try:
+#		f = open('categorias.bin','rb')
+#		dic = pickle.load(f)
+#		dic[cat] = []
+#		if not(os.path.exists('categorias.bin')):
+#			try:
+#				f = open('categorias.bin','wb')
+#				pickle.dump(dic,f)
+#				print('>> La categoría {0} se creó correctamente!'.format(cat))
+#			except:
+#				print('>> ERROR al escribir en el archivo.')
+#		else:
+#			print('>> El archivo "categorias.bin" ya existe en el directorio.')
+#	except:
+#		print('>> ERROR al intentar abrir el archivo como lectura.')
+#	input('\n-- Presione <ENTER> para continuar --')
+#	menu_principal()
 
 
 def crear_archivo():
@@ -36,7 +36,6 @@ def crear_archivo():
 		pickle.dump(dic,f)
 		f.close()
 		print('>> El archivo "categorias.bin" se creó correctamente.')
-		input('\n-- Presione <ENTER> para continuar --')
 	except:
 		print('>> ERROR. No se pudo crear el archivo.')
 
@@ -94,7 +93,7 @@ def eliminar_categoria(cat):
 def crear_categoria(cat):
 	if (os.path.exists('categorias.bin')):
 		try:
-			f = open('categorias.bin','rb')	
+			f = open('categorias.bin','rb')
 			dic = pickle.load(f)
 			if (cat in dic):
 				print('>> La categoría ya existe en el archivo!')
@@ -103,7 +102,13 @@ def crear_categoria(cat):
 			else:
 				resp = input('>> La categoría {0} no existe en el archivo. ¿Desea crearla? [s/n]: '.format(cat))
 				if (evaluar_resp(resp) == 's'):
-					alta_categoría(cat)
+					dic[cat] = []
+					try:
+						f = open('categorias.bin','wb')
+						pickle.dump(dic,f)
+						print ('>> La categoría {0} se creó correctamente.'.format(cat))
+					except:
+						print('>> ERROR. No se puede escribir en el archivo.')
 				elif (evaluar_resp(resp) == 'n'):
 					print('>> No se creó la nueva categoría. Presione <ENTER> para volver al menú principal.')
 					input()
@@ -124,7 +129,7 @@ def crear_categoria(cat):
 				try:
 					f = open('categorias.bin','wb')		## CAMBIO EL MODO DE APERTURA DEL ARCHIVO
 					pickle.dump(dic,f)		## ESCRIBO EL DICCIONARIO EN EL ARCHIVO
-					print('>> La categoría {0} fue agregada correctamente.'.format(cat))
+					print('>> La categoría {0} fue agregada correctamente.\n'.format(cat))
 				except:
 					print('\n>> ERROR. No se puede escribir en el archivo.')
 					return
@@ -135,6 +140,10 @@ def crear_categoria(cat):
 		if (evaluar_resp(resp) == 'n'):
 			print('\n>> No se puede continuar sin el archivo. Abortando programa...')
 			return
+	input('\n-- Presione <ENTER> para continuar --\n')
+	menu_principal()
+						
+
 
 def agregar_palabra(cat):
 	try:
@@ -314,9 +323,10 @@ def menu_principal():
 					menu_categoria(cat)
 				else:
 					print('>> ERROR. La categoría ingresada no existe. Intente nuevamente.\n')
+					input('\n-- Presione <ENTER> para continuar --\n')
 					menu_principal()
 			elif (opc == 4):
-				ver_categorias()
+				ver_categorias()	## IMPLEMENTAR
 			else:
 				print('\n>> Fin de programa, vuelva pronto.')		
 				return
