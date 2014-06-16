@@ -3,7 +3,7 @@ import os
 
 
 def leer_categoria():
-	cat = input('>> Nombre de la categoría a trabajar (nueva o existente): ')
+	cat = input('>> Nombre de la categoría con la que desea trabajar: ')
 	cat = cat.upper()
 	return cat
 
@@ -134,6 +134,31 @@ def crear_categoria(cat):
 			print('\n>> No se puede continuar sin el archivo. Abortando programa...')
 			return
 
+def agregar_palabra(cat):
+	if (os.path.exists('categorias.bin')):
+		try:
+			f = open ('categorias.bin','rb')
+			dic = pickle.load(f)
+
+
+def verificar_cat(cat):
+	if (os.path.exists('categorias.bin')):
+		try:
+			f = open('categorias.bin','rb')
+			dic = pickle.load(f)
+			if (cat in dic):
+				return True
+			else:
+				return False
+		except:
+			print('>> ERROR. No se puede leer el archivo.')
+	else:
+		print('>> ERROR. El archivo "categorias.bin" aún no fue creado. Por favor seleccione la opción 1 para crearlo.')
+		input('\n-- Presione <ENTER> para continuar --\n')
+		menu_principal()
+
+
+
 def menu_categoria(cat):
 	print('\n--------------------- CATEGORÍA {0} ---------------------'.format(cat))
 	print('\t 1. Agregar palabra a categoría.')
@@ -179,7 +204,12 @@ def menu_principal():
 			elif (opc == 2):
 				eliminar_categoria(leer_categoria())
 			elif (opc == 3):
-				menu_categoria(leer_categoria())
+				cat = leer_categoria()
+				if (verificar_cat(cat) == True):
+					menu_categoria(cat)
+				else:
+					print('>> ERROR. La categoría ingresada no existe. Intente nuevamente.\n')
+					menu_principal()
 			elif (opc == 4):
 				ver_categorias()
 			else:
