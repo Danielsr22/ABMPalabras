@@ -153,6 +153,7 @@ def verificar_cat(cat):
 			f.close()
 		except:
 			print('>> ERROR. No se puede leer el archivo.')
+			return
 	else:
 		print('>> ERROR. El archivo "categorias.bin" aún no fue creado. Por favor seleccione la opción 1 para crearlo.')
 		input('\n-- Presione <ENTER> para continuar --\n')
@@ -174,7 +175,7 @@ def menu_categoria(cat):
 		opc = int(input('\n>> Opción deseada: '))
 	if (opc in range(1,7)):
 		if (opc == 1):
-			agregar_palabra(cat)	## IMPLEMENTAR
+			agregar_palabra(cat)	## IMPLEMENTANDO
 		elif (opc == 2):	
 			eliminar_palabra(cat)	## IMPLEMENTAR
 		elif (opc == 3):
