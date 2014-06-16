@@ -2,6 +2,7 @@ import pickle
 import os
 from random import randrange
 
+
 def leer_categoria():
 	cat = input('>> Nombre de la categoría con la que desea trabajar: ')
 	cat = cat.upper()
@@ -308,7 +309,7 @@ def menu_principal():
 		opc = int(input('\n>> Opción deseada: '))
 		while (opc < 1) or (opc > 5):
 			print('>> ERROR. Valor fuera de rango.')
-			opc = int(input('\n>> Opción deseada:'))
+			opc = int(input('\n>> Opción deseada: '))
 		if (opc in range(1,6)):
 			if (opc == 1):
 				crear_categoria(leer_categoria())
@@ -323,7 +324,7 @@ def menu_principal():
 					input('\n-- Presione <ENTER> para continuar --\n')
 					menu_principal()
 			elif (opc == 4):
-				ver_categorias()	## IMPLEMENTAR
+				ver_categorias()	
 			else:
 				print('\n>> Fin de programa, vuelva pronto.')		
 				return
