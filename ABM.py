@@ -150,6 +150,7 @@ def verificar_cat(cat):
 				return True
 			else:
 				return False
+			f.close()
 		except:
 			print('>> ERROR. No se puede leer el archivo.')
 	else:
